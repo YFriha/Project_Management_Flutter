@@ -4,7 +4,7 @@ import '../models/team_member.dart';
 class TeamMemberItem extends StatelessWidget {
   final TeamMember teamMember;
 
-  TeamMemberItem({final this.teamMember});
+  TeamMemberItem({required final this.teamMember});
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import '../models/project.dart';
 class TaskCreationScreen extends StatefulWidget {
   final Project project;
 
-  TaskCreationScreen({final this.project});
+  TaskCreationScreen({required final this.project});
 
   @override
   _TaskCreationScreenState createState() => _TaskCreationScreenState();

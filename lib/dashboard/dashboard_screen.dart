@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:projx/models/project.dart';
-import '../data/mock_data.dart'; // Importez votre logique de récupération des données.
+import 'package:projx/screens/project_list_screen.dart';
+// import 'package:projx/screens/team_members_list_screen.dart';
+import 'package:projx/screens/task_list_screen.dart';
+import '../data/mock_data.dart';
 
 class DashboardScreen extends StatelessWidget {
-  final List<Project> projects = MockData.getProjects().cast<Project>(); // Remplacez cela par votre logique de récupération des projets.
+  final List<Project> projects = MockData.getProjects().cast<Project>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +25,74 @@ class DashboardScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
-            // Affichez la progression de chaque projet sous forme de barre circulaire.
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: projects.length,
-              itemBuilder: (context, index) {
-                final Project project = projects[index];
-                final double progress = calculateProgress(project); // Calculez la progression (vous devrez implémenter cette fonction).
+            // Horizontally scrollable list of projects
+            Container(
+              height: 120.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: projects.length,
+                itemBuilder: (context, index) {
+                  final Project project = projects[index];
+                  final double progress = calculateProgress(project);
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(project.name),
-                    CircularPercentIndicator(
-                      radius: 60.0, // Rayon de la barre circulaire
-                      lineWidth: 5.0, // Largeur de la ligne de la barre circulaire
-                      percent: progress,
-                      center: Text('${(progress * 100).toInt()}%'),
-                      progressColor: Colors.blue,
-                    ),
-                    SizedBox(height: 16.0),
-                  ],
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: _buildProjectCard(project.name, progress),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProjectListScreen()),
                 );
               },
+              child: Text('Voir la Liste des Projets'),
+            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => TeamMembersListScreen(),
+            //       ),
+            //     );
+            //   },
+            //   child: Text('Voir la Liste des Membres'),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => TaskListScreen()),
+            //     );
+            //   },
+            //   child: Text('Voir la Liste des Tâches'),
+            // ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProjectCard(String projectName, double progress) {
+    return Container(
+      width: 150.0, // Adjust the card width as needed
+      child: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(projectName),
+            SizedBox(height: 8.0),
+            CircularPercentIndicator(
+              radius: 40.0,
+              lineWidth: 4.0,
+              percent: progress,
+              center: Text('${(progress * 100).toInt()}%'),
+              progressColor: Colors.blue,
             ),
           ],
         ),
@@ -52,10 +100,8 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  // Fonction pour calculer la progression d'un projet (à adapter selon vos besoins).
   double calculateProgress(Project project) {
-    // Implémentez votre logique de calcul de la progression ici.
-    // Par exemple, si vous avez des tâches, vous pouvez compter le nombre de tâches terminées par rapport au nombre total de tâches.
-    return 0.7; // Remplacez ceci par votre logique réelle.
+    // Your progress calculation logic here
+    return 0.7;
   }
 }

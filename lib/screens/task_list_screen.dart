@@ -4,7 +4,7 @@ import '../models/task.dart';
 class TaskListScreen extends StatelessWidget {
   final List<Task> tasks;
 
-  TaskListScreen({final this.tasks});
+  TaskListScreen({required final this.tasks});
 
   @override
   Widget build(BuildContext context) {

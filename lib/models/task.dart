@@ -1,33 +1,40 @@
+// models/task.dart
+
+import 'package:projx/models/team_member.dart';
+
 class Task {
   final String name;
   final DateTime dueDate;
   final int priority;
-  // Ajoutez d'autres propriétés de tâche en fonction de vos besoins.
+  final TeamMember assignedMember; // Added assignedMember property
 
   Task({
     required this.name,
     required this.dueDate,
     required this.priority,
-    // Ajoutez d'autres propriétés de tâche en fonction de vos besoins.
+    required this.assignedMember, // Added assignedMember to the constructor
+    // Add other task properties as needed.
   });
 
-  // Facultatif : Méthode pour créer une tâche à partir d'une carte (map) de données.
+  // Optional: Method to create a Task from a map of data.
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       name: json['name'],
       dueDate: DateTime.parse(json['dueDate']),
       priority: json['priority'],
-      // Ajoutez d'autres propriétés de tâche en fonction de vos besoins.
+      assignedMember: TeamMember.fromJson(json['assignedMember']),
+      // Add other task properties as needed.
     );
   }
 
-  // Facultatif : Méthode pour convertir une tâche en une carte (map) de données.
+  // Optional: Method to convert a Task into a map of data.
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'dueDate': dueDate.toIso8601String(),
       'priority': priority,
-      // Ajoutez d'autres propriétés de tâche en fonction de vos besoins.
+      'assignedMember': assignedMember.toJson(),
+      // Add other task properties as needed.
     };
   }
 }

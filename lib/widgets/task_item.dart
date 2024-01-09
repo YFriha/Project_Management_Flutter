@@ -1,10 +1,12 @@
+// widgets/task_item.dart
+
 import 'package:flutter/material.dart';
 import '../models/task.dart';
 
 class TaskItem extends StatelessWidget {
   final Task task;
 
-  TaskItem({final this.task});
+  TaskItem({required final this.task});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,12 @@ class TaskItem extends StatelessWidget {
           children: [
             Text('Délai: ${task.dueDate.toLocal()}'),
             Text('Priorité: ${task.priority}'),
-            // Ajoutez d'autres détails de la tâche en fonction de vos besoins.
+            Text('Assigné à: ${task.assignedMember.name}'), // Display assigned member's name
+            // Add other details of the task as needed.
           ],
         ),
         onTap: () {
-          // Naviguez vers l'écran de détails de la tâche.
+          // Navigate to the task details screen.
           // Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetailsScreen(task: task)));
         },
       ),

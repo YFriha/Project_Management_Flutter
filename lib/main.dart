@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projx/screens/calendar_screen.dart';
+import 'package:projx/data/mock_data.dart';
+import 'package:projx/screens/project_details_screen.dart';
+import 'package:projx/screens/project_list_screen.dart';
+
 import 'dashboard/dashboard_screen.dart';
 
 void main() {
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CalendarScreen(),  // Définissez le tableau de bord comme écran initial
+      home: DashboardScreen(), // Assuming getProjects returns a list, use .first to get the first project
     );
   }
 }

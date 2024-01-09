@@ -33,7 +33,7 @@ class ProjectCard extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TaskCreationScreen(projectId: project.id)),
+                MaterialPageRoute(builder: (context) => TaskCreationScreen(project: project)),
               );
             },
             child: Text('Ajouter une Tâche'),

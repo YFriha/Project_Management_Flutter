@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/project_card.dart';
-import '../models/project.dart';
-import '../data/mock_data.dart';
-import '../screens/project_creation_screen.dart';
+import 'package:projx/data/mock_data.dart';
+import 'package:projx/models/project.dart';
+import 'package:projx/screens/project_creation_screen.dart';
+import 'package:projx/screens/project_details_screen.dart';
+import 'package:projx/widgets/project_card.dart';
 
 class ProjectListScreen extends StatelessWidget {
   final List<Project> projects = MockData.getProjects();
@@ -18,7 +20,39 @@ class ProjectListScreen extends StatelessWidget {
         child: ListView.builder(
           itemCount: projects.length,
           itemBuilder: (context, index) {
-            return ProjectCard(project: projects[index]);
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to ProjectDetailsScreen when a project is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProjectDetailsScreen(
+                          project: projects[index],
+                        ),
+                      ),
+                    );
+                  },
+                  child: ProjectCard(project: projects[index]),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigate to ProjectDetailsScreen when the button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProjectDetailsScreen(
+                          project: projects[index],
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text('View Project Details'),
+                ),
+              ],
+            );
           },
         ),
       ),
